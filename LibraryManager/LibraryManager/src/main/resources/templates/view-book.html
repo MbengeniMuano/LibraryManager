@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+            z-index: -1; /* Place the overlay behind other content */
+        }
+
+        body {
+            padding-top: 20px;
+            background-image: url('/static/img/library-488690_1280.jpg'); /* Background image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+            color: #ffffff; /* Default text color (white) */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Target label elements */
+        label {
+            color: #ffffff; /* Set label text color to white */
+        }
+
+        .book-details {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for book details */
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+        }
+
+        .book-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333; /* Dark text color */
+            margin-bottom: 10px;
+        }
+
+        .book-info {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333; /* Dark text color */
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="book-details">
+        <div class="text-center">
+            <img src="/static/img/book-icon.png" alt="Book Icon" width="100">
+        </div>
+        <h2 class="book-title" th:text="${book.title}"></h2>
+        <p class="book-info">Author: <span th:text="${book.author}"></span></p>
+        <p class="book-info">ISBN: <span th:text="${book.isbn}"></span></p>
+        <p class="book-info">Genre: <span th:text="${book.genre}"></span></p>
+        <p class="book-info">Quantity: <span th:text="${book.quantity}"></span></p>
+        <a href="book-list.html" class="btn btn-secondary back-button">Back to Book List</a>
+    </div>
+</div>
+</body>
+</html>

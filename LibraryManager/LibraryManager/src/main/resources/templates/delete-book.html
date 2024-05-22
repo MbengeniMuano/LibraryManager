@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        body {
+            padding-top: 20px;
+            background-image: url('/static/img/library-488690_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        label {
+            color: #ffffff;
+        }
+
+        .btn-delete {
+            margin-top: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .btn-delete {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Delete Book</h2>
+    <form id="deleteForm" action="/books/delete" method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label>Delete by ISBN</label>
+            <input type="text" class="form-control" name="isbn" required>
+        </div>
+        <div class="form-group">
+            <label>Delete by Author</label>
+            <input type="text" class="form-control" name="author" required>
+        </div>
+        <div class="form-group">
+            <label>Delete by Title</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        <button type="submit"   class="btn btn-danger btn-block btn-delete">Delete</button>
+        <a href="book-list.html"   class="btn btn-secondary btn-block">Cancel</a>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var isbn = document.forms["deleteForm"]["isbn"].value;
+        var author = document.forms["deleteForm"]["author"].value;
+        var title = document.forms["deleteForm"]["title"].value;
+
+        if (isbn === "" && author === "" && title === "") {
+            alert("Please enter ISBN, Author, or Title to delete.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

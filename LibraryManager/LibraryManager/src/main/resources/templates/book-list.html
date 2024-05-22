@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - Book List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Your existing CSS styles */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        body {
+            padding-top: 20px;
+            background-image: url('/static/img/library-488690_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+
+        @media (max-width: 768px) {
+        }
+
+        .btn-cute {
+            border-radius: 30px;
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: #ffcccc;
+            border: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-cute:hover {
+            background-color: #ff9999;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cute:active {
+            transform: translateY(2px);
+            box-shadow: none; /* Remove box shadow on click */
+        }
+
+        /* Make text color white for all p elements within col-sm-8 */
+        .col-sm-8 p {
+            color: #ffffff; /* White text color */
+        }
+
+        /* Footer styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header text-center">
+        <!-- Local image included as TUT logo -->
+        <img src="/static/img/logo.png" alt="TUT Logo" class="institution-logo">
+        <h2 style="color: white;font-family:Raleway">Library Digital Shelf</h2>
+    </div>
+
+    <!-- Search input field -->
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search for a book...">
+        </div>
+    </div>
+
+    <!-- Books categorized by types -->
+    <div th:each="bookType : ${bookTypes}">
+        <h3 class="book-type-header" th:text="${bookType.name}"></h3>
+
+        <div th:each="book : ${bookType.books}" class="book-container" th:onclick="'/books/' + ${book.id}">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4 th:text="${book.title}" style="color: #6a5acd;"></h4>
+                    <p>Author: <span th:text="${book.author}"></span></p>
+                    <p>ISBN: <span th:text="${book.isbn}"></span></p>
+                    <p>Genre: <span th:text="${book.genre}"></span></p>
+                    <p>Quantity: <span th:text="${book.quantity}"></span></p>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <a th: href="view-book.html"  class="btn btn-primary btn-cute btn-action">View</a>
+                    <a th: href="edit-book.html"  class="btn btn-info btn-cute btn-action">Edit</a>
+                    <a th: href="delete-book.html" class="btn btn-danger btn-cute btn-action">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Book button with cute style -->
+    <a  href="add-book.html" class="btn btn-cute btn-add-book">Add New Book</a>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>Library Vision: To provide access to knowledge and empower learning.</p>
+        <p>Location: Polokwane, Tshwane University Campus</p>
+        <p>Contact: +27765341775</p>
+        <p>&copy; 2024 Group E  All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- JavaScript to trigger landing page effect and search functionality -->
+<!-- JavaScript to trigger landing page effect and search functionality -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Landing page effect - fade in content
+        document.body.style.opacity = 0;
+        setTimeout(function () {
+            document.body.style.transition = "opacity 1s";
+            document.body.style.opacity = 1;
+        }, 100);
+
+        // Search functionality
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            const bookContainers = document.querySelectorAll(".book-container");
+            bookContainers.forEach(function (container) {
+                const title = container.querySelector("h4").innerText.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    container.style.display = "block";
+                } else {
+                    container.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+<!-- JavaScript to append footer after initial content load -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Create footer element
+        var footer = document.createElement("footer");
+        footer.innerHTML = `
+            <div class="container">
+                <p>Library Vision: To provide access to knowledge and empower learning.</p>
+                <p>Location: Polokwane, Tshwane University of Technology Campus</p>
+                <p>Contact: +27765341775</p>
+                <p>&copy; 2024 Group E . All Rights Reserved.</p>
+            </div>
+        `;
+        // Append footer to body
+        document.body.appendChild(footer);
+    });
+</script>
+
+
+</body>
+</html>
